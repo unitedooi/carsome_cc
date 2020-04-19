@@ -74,5 +74,38 @@
 
 @endsection
 
+@section('script')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+$('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0],
+        autoclose: true,
+        startDate: new Date(),
+        endDate: new Date(new Date().setDate(new Date().getDate() + 21)),
+    }
+);
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dynamic').on('change',function(){
+            //if($(this).val() != ''){
+                var date = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{ route('appointment.fetch') }}",
+                    method: "POST",
+                    data: {date:date, _token:_token,          },
+                }).done(function(result){
+                    $('#slot_id').html(result);
+                });
+        });
+    });
+</script>
+
+@endsection
 
 

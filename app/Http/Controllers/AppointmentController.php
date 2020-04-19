@@ -80,7 +80,10 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        return view('appointmentView');
+
+        $appointment = Appointment::findOrFail($id);
+
+        return view('appointmentView', compact('appointment'));
         
     }
 
