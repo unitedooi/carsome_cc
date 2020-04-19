@@ -10,7 +10,7 @@ class Appointment extends Model
         'name', 'email', 'mobile', 'remark', 'date', 'slot_id', 'needReminder',
     ];
 
-    public function day(){
-        return $this->belongsTo('App\Day');
+    public function slot(){
+        return $this->belongsTo('App\Slot');
     }
 }

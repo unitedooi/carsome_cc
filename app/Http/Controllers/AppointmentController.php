@@ -65,14 +65,14 @@ class AppointmentController extends Controller
      */
     public function store(AppointmentRequest $request)
     {
-        Appointment::create($request->all());
+        $appointment = Appointment::create($request->all());
 
         Session::flash('new_appointment', 'You appointment has been book successfully.');
 
-        return redirect('/home');
+        return redirect()->route('appointment.show', [$appointment->id]);
     }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  int  $id
@@ -80,7 +80,8 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('appointmentView');
+        
     }
 
     /**

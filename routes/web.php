@@ -13,7 +13,6 @@
 
 Route::get('/', function () {
     
-    //return view('appointment');
     return redirect('/appointment');
 });
 
@@ -24,3 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/appointment', 'AppointmentController');
 
 Route::post('appointment/fetch', 'AppointmentController@fetch')->name('appointment.fetch');
+
+// Route::resource('/admin/appointment', 'AppointmentController');

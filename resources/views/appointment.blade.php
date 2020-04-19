@@ -16,8 +16,8 @@
     {!! Form::open(['method'=>'POST', 'action'=>'AppointmentController@store']) !!}
 
         <div class="row mx-auto">
-            <div class="col-md-8 col-lg-9"><img src="https://image.freepik.com/free-vector/auto-service-illustration_1284-20618.jpg" width="100%"/></div>
-            <div class="col-sm-12 col-md-4 col-lg-3">
+            <div class="col-md-8 col-lg-8"><img src="https://image.freepik.com/free-vector/auto-service-illustration_1284-20618.jpg" width="100%"/></div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
 
                 @include('layouts.error')
 
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="form-group form-inline">
-                    <input id="needReminder" name="needReminder" checked type='checkbox' /> <span>I need call reminder</span>
+                    <input id="needReminder" value='1' name="needReminder" checked type='checkbox' /> <span>I need call reminder</span>
                 </div>
             
                 <div class="form-group">

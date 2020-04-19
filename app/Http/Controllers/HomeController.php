@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,7 +23,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $appointments = Appointment::orderBy("date", "DESC")->get();
+        return view('home', compact('appointments'));
     }
 }
