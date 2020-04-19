@@ -22,6 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/appointment', 'AppointmentController');
 
-Route::post('appointment/fetch', 'AppointmentController@fetch')->name('appointment.fetch');
+Route::get('/appointment/edit/{appointment_id}', 'AppointmentController@edit')->name('appointment.update');
 
-// Route::resource('/admin/appointment', 'AppointmentController');
+Route::post('appointment/fetch', 'AppointmentController@fetch')->name('appointment.fetch');

@@ -40,7 +40,7 @@ class HomeController extends Controller
                             // Add color and link on event
                          [
                              'color' => '#ff0000',
-                              'url' => '#'.$value->id,
+                              'url' => route('appointment.edit', $value->id),
                          ]
                         );
                     }

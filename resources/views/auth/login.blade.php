@@ -8,6 +8,9 @@
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
+                    <p class='text-center'><b>Login Info</b><br>
+                        Email: admin@carsome.my<br>
+                        Password: carsome</p>
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 

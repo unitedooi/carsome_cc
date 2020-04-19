@@ -1,21 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
 
-    <h1>Inspection Booking</h1>
+    <h1>Edit Inspection Booking</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'AppointmentController@store']) !!}
+    {!! Form::model($appointment, ['method'=>'PATCH', 'action'=>['AppointmentController@update', $appointment->id],]) !!}
 
         <div class="row mx-auto">
             <div class="col-md-8 col-lg-8"><img src="https://image.freepik.com/free-vector/auto-service-illustration_1284-20618.jpg" width="100%"/></div>
             <div class="col-sm-12 col-md-4 col-lg-4">
-
-                @if (session('error_appointment'))
-                <div class="alert alert-danger">
-                    {{ session('error_appointment') }}
-                </div>
-                @endif
 
                 @include('layouts.error')
 
@@ -42,9 +37,13 @@
                 <div class="form-group">
                     <label for="slot_id">Slot:</label>
                     <select id="slot_id" name="slot_id" class="form-control">
-                    <option value="">Pick a date first</option>
+                    @foreach ($slots as $slot)
+                        <option value="{{$slot->id}}" {{$appointment->slot_id == $slot->id ? 'selected' : '' }}>{{$slot->startTime}}</option>
+                    @endforeach
                     </select>
                 </div>
+
+                
 
                 <div class="form-group">
                     {!! Form::label('remark', 'Remark') !!}
@@ -52,20 +51,27 @@
                 </div>
 
                 <div class="form-group form-inline">
-                    <input id="needReminder" value='1' name="needReminder" checked type='checkbox' /> <span>I need call reminder</span>
+                    <input id="needReminder" value="1" {{$appointment->needReminder == 1 ? 'checked' : ''}} name="needReminder" type='checkbox' /> <span>I need call reminder</span>
                 </div>
             
                 <div class="form-group">
-                    {!! Form::submit('Submit', ['class'=>'btn btn-dark', 'style'=>'color:white; background-color: black']) !!}
+                    {!! Form::submit('Edit', ['class'=>'btn btn-dark', 'style'=>'color:white; background-color: black']) !!}
             
                 </div>
 
+                {!! Form::close() !!}
+
+                {!! Form::open(['method'=>'DELETE', 'action'=>['AppointmentController@destroy',$appointment->id]]) !!}
+        
+                    <div class="form-group">
+                        {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+                
+                    </div>
+                
+                {!! Form::close() !!}
+
             </div>
         </div>
-    
-        
-    
-    {!! Form::close() !!}
 
     
 </div>
@@ -105,5 +111,3 @@ $('.datepicker').datepicker({
 </script>
 
 @endsection
-
-

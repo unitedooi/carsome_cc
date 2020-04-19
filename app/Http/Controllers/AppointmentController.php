@@ -64,12 +64,23 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(AppointmentRequest $request)
-    {
-        $appointment = Appointment::create($request->all());
+    {   
+        $check_duplicate = Appointment::where('date', '=', $request->date, 'and')->where('slot_id', '=', $request->slot_id, 'and')->where('mobile', '=', $request->mobile)->get()->count();
 
-        Session::flash('new_appointment', 'You appointment has been book successfully.');
+        if($check_duplicate == 1){
+            Session::flash('error_appointment', 'Duplicate entry, please book another slot, Thank You');
 
-        return redirect()->route('appointment.show', [$appointment->id]);
+            return redirect('/appointment');
+
+        }else{
+
+            $appointment = Appointment::create($request->all());
+
+            Session::flash('new_appointment', 'You appointment has been book successfully.');
+
+            return redirect()->route('appointment.show', [$appointment->id]);
+
+        }
     }
 
     /*
@@ -95,7 +106,11 @@ class AppointmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $appointment = Appointment::findOrFail($id);
+
+        $slots = Slot::where('day_id', '=', $appointment->slot->day->id)->get();
+
+        return view('appointmentEdit', compact(['appointment','slots']));
     }
 
     /**
@@ -105,9 +120,13 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AppointmentRequest $request, $id)
     {
-        //
+        Appointment::findOrFail($id)->update($request->all());
+
+        Session::flash('status', 'You appointment has been edit successfully.');
+
+        return redirect('/home');
     }
 
     /**
@@ -118,6 +137,10 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Appointment::findOrFail($id)->delete();
+
+        Session::flash('status', 'You appointment has been delete successfully.');
+
+        return redirect('/home');
     }
 }
