@@ -12,9 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    
+    //return view('appointment');
+    return redirect('/appointment');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/appointment', 'AppointmentController');
+
+Route::post('appointment/fetch', 'AppointmentController@fetch')->name('appointment.fetch');

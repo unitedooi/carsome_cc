@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
 </head>
 <body>
     <div id="app">
@@ -29,7 +31,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="https://www.carsome.my/assets/images/MY/logo-carsome.png" height='100%'/>
                     </a>
                 </div>
 
@@ -76,5 +78,50 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+    $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            daysOfWeekDisabled: [0],
+            autoclose: true,
+            startDate: new Date(),
+            endDate: new Date(new Date().setDate(new Date().getDate() + 21)),
+        }
+    );
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dynamic').on('change',function(){
+                //if($(this).val() != ''){
+                    var date = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('appointment.fetch') }}",
+                        method: "POST",
+                        data: {date:date, _token:_token,          },
+                    }).done(function(result){
+                        $('#slot_id').html(result);
+                    });
+
+                    // $('#slot_id').html('<option>123</option>');
+                    // $ajax({
+                    //     url: "{{ route('appointment.fetch') }}",
+                    //     method: "POST",
+                    //     data: {date:date, _token:_token,
+                    //          dependent:dependent},
+                    //     success:function(result){
+                    //         alert('123');
+                    //             $('#slot_id').html(result);
+                    //     },
+                    //     error: function(){
+                    //         alert('error');
+                    //     }
+                    // })
+                //}
+            });
+        });
+    </script>
 </body>
 </html>

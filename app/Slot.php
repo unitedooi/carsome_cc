@@ -9,4 +9,8 @@ class Slot extends Model
     protected $fillable = [
         'name', 'no', 'startTime', 'endTime', 'day_id', 'duration', 'isActive',
     ];
+
+    public function day(){
+        return $this->belongsTo('App\Day');
+    }
 }
