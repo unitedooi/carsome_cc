@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use Illuminate\Http\Request;
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,27 @@ class HomeController extends Controller
     public function index()
     {   
         $appointments = Appointment::orderBy("date", "DESC")->get();
-        return view('home', compact('appointments'));
+
+        $events = [];
+                $data = Appointment::all();
+                if($data->count()) {
+                    foreach ($data as $key => $value) {
+                        $events[] = Calendar::event(
+                            $value->name,
+                            false,
+                            new \DateTime($value->date.'T'.$value->slot->startTime),
+                            new \DateTime($value->date.'T'.$value->slot->endTime),
+                            null,
+                            // Add color and link on event
+                         [
+                             'color' => '#ff0000',
+                              'url' => '#'.$value->id,
+                         ]
+                        );
+                    }
+                }
+                $calendar = Calendar::addEvents($events);
+
+        return view('home', compact(['appointments', 'calendar']));
     }
 }

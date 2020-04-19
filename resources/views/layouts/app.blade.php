@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 </head>
 <body>
     <div id="app">
@@ -104,24 +105,11 @@
                     }).done(function(result){
                         $('#slot_id').html(result);
                     });
-
-                    // $('#slot_id').html('<option>123</option>');
-                    // $ajax({
-                    //     url: "{{ route('appointment.fetch') }}",
-                    //     method: "POST",
-                    //     data: {date:date, _token:_token,
-                    //          dependent:dependent},
-                    //     success:function(result){
-                    //         alert('123');
-                    //             $('#slot_id').html(result);
-                    //     },
-                    //     error: function(){
-                    //         alert('error');
-                    //     }
-                    // })
-                //}
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+    {!! $calendar->script() !!}
 </body>
 </html>

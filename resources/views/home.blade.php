@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 ">
+        <div class="col-md-10 col-md-offset-1 ">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
@@ -14,8 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    {!! $calendar->calendar() !!}
                     
+                    <h3 style="margin-top: 30px; margin-bottom:20px">Recent Activity</h3>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -27,7 +28,7 @@
                         <tbody>
                             @if ($appointments)
                                 @foreach ($appointments as $appointment)
-                                <tr>
+                                <tr id='{{ $appointment->id }}' >
                                     <td>
                                         {{ $appointment->date }}<br>
                                         {{ $appointment->slot->startTime }}
