@@ -18,6 +18,12 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+    
     public function index()
     {
         AppointmentCollection::withoutWrapping();
@@ -40,12 +46,12 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AppointmentRequest $request)
     {
 
         $check_duplicate = Appointment::where('date', '=', $request->date, 'and')->where('slot_id', '=', $request->slot_id, 'and')->where('mobile', '=', $request->mobile)->get()->count();
 
-        if($check_duplicate == 1){
+        if($check_duplicate >= 1){
 
             return [
                 'error'=> 'Duplicate Entry'
@@ -99,7 +105,7 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AppointmentRequest $request, $id)
     {
         $appointment = Appointment::findOrFail($id)->update($request->all());
 
