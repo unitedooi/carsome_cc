@@ -31,7 +31,7 @@
         
                 <div class="form-group">
                     {!! Form::label('mobile', 'Mobile') !!}
-                    {!! Form::text('mobile', null, ['class'=>'form-control', 'placeholder'=>'+0123456789']) !!}
+                    {!! Form::text('mobile', null, ['class'=>'form-control', 'placeholder'=>'+60123456789']) !!}
                 </div>
         
                 <div class="form-group">
